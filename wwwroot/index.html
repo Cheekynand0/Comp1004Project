@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Scientific Calculator</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--Bootstrap 5 links:-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"/>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    
+    <!--Links for my stylesheet & javascript:-->
+    <link href="css/site.css" rel="stylesheet" type="text/css"/>
+    <script src="js/site.js"></script>
+
+</head>
+
+<body>
+    <!--There'll be a navbar ontop which'll be used to switch between the different 'modes', editing operations shown-->
+    <!--I did research on the navbar systems bootstrap provides and tried best to implement it here for a nicer navbar-->
+    <nav class="navbar navbar-expand-md bg-body-tertiary">
+        <!--Fluid will ensure it spans the whole window width-->
+        <div class="container-fluid">
+
+            <!--This is the "navbar brand" that'll display on the top-left, essentially being the title of the page-->
+            <span class="navbar-brand">
+                Scientific Calculator <!--this is just for the name to be top-left and always visible-->
+            </span>
+
+            <!--This button will appear once the page width gets below 768px-->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-expanded="false" aria-controls="navbarContent" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon" style="width: 20%; height:10vw;"></span> <!--style="width:4vw;"-->
+            </button>
+
+            <!--These are the items the items that'll appear navbar, and will function as "mode" buttons to change the operations section-->
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <!--Navbar items below-->
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <!--arithmetic mode for common advanced math functions-->
+                        <button class="btn" style=" " onclick="basicMode();">Basic Arithmatic</button>
+                    </li>
+                    <li class="nav-item">
+                        <!--trigonometry mode for trig functions (in degrees)-->
+                        <button class="btn" onclick="trigMode();">Trigonometry</button>
+                    </li>
+                    <li class="nav-item">
+                        <!--conversion mode for converting between number systems-->
+                        <button class="btn" onclick="conversionMode();">Numerical Conversions</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <!--Display section-->
+    <div class="container-fluid"> <!--Fluid so it takes the entire width-->
+        <div class="row justify-content-center m-2">
+            <!--Input type as it's the best choice for displaying digits that'll be entered-->
+            <input id="display" type="text" class="displayTest border-0 align-self-center" style="text-align: right; font-size: 5vw; background-color:#dfdfdf; border-radius:25px;" name="display" aria-label="0" placeholder="0" disabled>
+        </div>
+    </div>
+
+
+    <!--This div will contain the numpad and operations data. It'll all be under the display row-->
+    <div class="container-fluid m-2 .bg-secondary"> <!---->
+        <div class="row">
+            <!--This section is for the actual numpad, with the numbers and basic arithmetic operatons
+        It will should always be visible, regardless of page should-->
+            <!--col-sm-12 col-lg-8 ,, col-sm-12 col-lg-3-->
+            <div class="col col-12 col-lg-9 gap-2 text-center NumpadSection" id="NumpadSection">
+                <div class="row justify-content-center" style="height:100px;">
+                    <input type="button" id="7" class="col btn btn-outline-primary btn-lg" style="font-size: 3vw;" value="7" onclick="keyPress(); display.value += '7'" />
+                    <input type="button" id="8" class="col btn btn-outline-primary btn-lg" style="font-size: 3vw;" value="8" onclick="keyPress(); display.value += '8'" />
+                    <input type="button" id="9" class="col btn btn-outline-primary btn-lg" style="font-size: 3vw;" value="9" onclick="keyPress(); display.value += '9'" />
+                    <input type="button" id="/" class="col btn btn-outline-secondary btn-lg" style="font-size: 3vw;" value="/" onclick="keyPress(); display.value += '/'" />
+                    <input type="button" id="DE" class="col btn btn-outline-secondary" style="font-size: 3vw;" value="DE" onclick="keyPress(); display.value = display.value.substring(0,(display.value.length)-1)" />
+                    <input type="button" id="AC" class="col btn btn-outline-secondary" style="font-size: 3vw;" value="AC" onclick="keyPress(); display.value = ''" />
+                </div>
+                <div class="row justify-content-center" style="height:100px;">
+                    <input type="button" id="4" class="col btn btn-outline-primary btn-lg" style="font-size: 3vw;" value="4" onclick="keyPress(); display.value += '4'" />
+                    <input type="button" id="5" class="col btn btn-outline-primary btn-lg" style="font-size: 3vw;" value="5" onclick="keyPress(); display.value += '5'" />
+                    <input type="button" id="6" class="col btn btn-outline-primary btn-lg" style="font-size: 3vw;" value="6" onclick="keyPress(); display.value += '6'" />
+                    <input type="button" id="x" class="col btn btn-outline-secondary btn-lg" style="font-size: 3vw;" value="x" onclick="keyPress(); display.value += 'x'" />
+                    <input type="button" id="π" class="col btn btn-outline-secondary" style="font-size: 3vw;" value="π" onclick="keyPress(); display.value += 'π'" />
+                    <input type="button" id="e" class="col btn btn-outline-secondary" style="font-size: 3vw;" value="e" onclick="keyPress(); display.value += 'e'" />
+                </div>
+                <div class="row justify-content-center" style="height:100px;">
+                    <input type="button" id="1" class="col btn btn-outline-primary btn-lg" style="font-size: 3vw;" value="1" onclick="keyPress(); display.value += '1'" />
+                    <input type="button" id="2" class="col btn btn-outline-primary btn-lg" style="font-size: 3vw;" value="2" onclick="keyPress(); display.value += '2'" />
+                    <input type="button" id="3" class="col btn btn-outline-primary btn-lg" style="font-size: 3vw;" value="3" onclick="keyPress(); display.value += '3'" />
+                    <input type="button" id="-" class="col btn btn-outline-secondary btn-lg" style="font-size: 3vw;" value="-" onclick="keyPress(); display.value += '-'" />
+                    <input type="button" id=")" class="col btn btn-outline-secondary btn-lg" style="font-size: 3vw;" value="(" onclick="keyPress(); display.value += '('" />
+                    <input type="button" id="(" class="col btn btn-outline-secondary btn-lg" style="font-size: 3vw;" value=")" onclick="keyPress(); display.value += ')'" />
+
+                </div>
+                <div class="row justify-content-center" style="height:100px;">
+                    <button type="button" id="." class="col btn btn-outline-secondary btn-lg" style="font-size: 3vw;" onclick="keyPress(); display.value += '.'">.</button>
+                    <button type="button" id="0" class="col btn btn-outline-primary btn-lg" style="font-size: 3vw;" onclick="keyPress(); display.value += '0'">0</button>
+                    <button type="button" id="=" class="col btn btn-outline-secondary btn-lg" style="font-size: 3vw;" onclick="keyPress(); display.value = calculate(display.value)">=</button>
+                    <button type="button" id="+" class="col btn btn-outline-secondary btn-lg" style="font-size: 3vw;" onclick="keyPress(); display.value += '+'">+</button>
+                    <input type="button" class="col btn btn-outline-secondary" style="font-size: 3vw;" value="Rand" onclick="keyPress(); display.value = (Math.floor(Math.random() * 1000))" /> <!--Limited to 1000 as I felt it was an appropriate limit.-->
+                    <input type="button" class="col btn btn-outline-secondary" style="font-size: 3vw;" value="%" onclick="keyPress(); display.value = calculate(((display.value)+'/100'))" />
+                </div>
+            </div>
+
+            <div class="col col-12 col-lg-3 ControlSection" id="ControlSection"> <!--style="width: 30%;"-->
+                <!--Using bootstraps navbar-collapse content to functon for operations, so when the screen is too small it will get collapsed.-->
+                <nav class="navbar navbar-expand-lg justify-content-center">
+                    <div>
+                        <span class="mb-0 justify-content-center" style="font-size:30px;">
+                            Operations
+                        </span>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#operationsContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                    </div>
+                </nav>
+
+                <div class="col me-auto mb-2 mb-lg-0" id="operationsContent">
+                    <div class="row justify-content-center gap-2" style="font-size: 30px;">
+                        <button type="button" class="col col-10 col-md-5 col-lg-10 btn btn-info" style="font-size: 30px;" id="Operation1" onclick="keyPress(); job1();">exp()</button>
+                        <button type="button" class="col col-10 col-md-5 col-lg-10 btn btn-info" style="font-size: 30px;" id="Operation2" onclick="keyPress(); job2();">x!</button>
+                        <button type="button" class="col col-10 col-md-5 col-lg-10 btn btn-info" style="font-size: 30px;" id="Operation3" onclick="keyPress(); job3();">log()</button>
+                        <button type="button" class="col col-10 col-md-5 col-lg-10 btn btn-info" style="font-size: 30px;" id="Operation4" onclick="keyPress(); job4();">ln()</button>
+                        <button type="button" class="col col-10 col-md-5 col-lg-10 btn btn-info" style="font-size: 30px;" id="Operation5" onclick="keyPress(); job5();">√x</button>
+                        <button type="button" class="col col-10 col-md-5 col-lg-10 btn btn-info" style="font-size: 30px;" id="Operation6" onclick="keyPress(); job6();">3√x</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
