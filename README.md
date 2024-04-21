@@ -10,4 +10,4 @@ I aim for this calculator to perform numeracy conversions between Denary, Binary
 <br><br>
 
 <h4>Note:</h4>
-When running the code, ensure the javascript and css documents are kept in files called "js" and "css" respestively. these files should be in the same folder as the index.html. This is shown in this repository, as within the wwwroot folder, are 2 further folders ("js" and "css"), alongsde the index.html
+When running the code, ensure the javascript and css documents are kept in files called "js" and "css" respestively. these files should be in the same folder as the index.html. This is shown in this repository, as within the wwwroot folder, are 2 further folders ("js" and "css"), alongside the index.html
